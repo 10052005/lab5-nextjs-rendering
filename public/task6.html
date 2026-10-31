@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Task 6 - React without JSX</title>
+  </head>
+  <body>
+    <!-- Root element where React will render -->
+    <div id="root"></div>
+
+    <!-- Load React from a CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script>
+      // 1. Creating a React Element (no JSX)
+      const element = React.createElement(
+        "p",
+        { style: { color: "blue", fontSize: "20px" } },
+        "Hello! This paragraph is created using React without JSX."
+      );
+
+      // 2. Selecting the Root Element
+      const rootElement = document.getElementById("root");
+      const root = ReactDOM.createRoot(rootElement);
+
+      // 3. Rendering the React Element
+      root.render(element);
+    </script>
+  </body>
+</html>
