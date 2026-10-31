@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lab 5: React ES6 and Rendering Methods in Next.js
 
-## Getting Started
+SED312 – Advanced Web Engineering
 
-First, run the development server:
+## About
+A Next.js project that covers ES6 features in React (Tasks 1-5), React without JSX (Task 6),
+and a comparison of SSR, SSG and CSR (Task 7), including a dynamic SSR page.
 
-```bash
+## Project structure
+- `app/task1` to `app/task5`: ES6 arrow functions, let/const, destructuring, ternary operator, spread operator
+- `public/task6.html`: React without JSX
+- `app/ssg`, `app/ssr`, `app/csr`: the same page built with each rendering method
+- `pages/ssr/[id].js`: dynamic SSR page using `getServerSideProps` (e.g. `/ssr/2` fetches post 2)
+
+## How to run
+```
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+For performance testing use production mode:
+```
+npm run build
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Performance comparison (production mode, Network tab)
+| Method | Rendered | TTFB | Data in page source |
+|---|---|---|---|
+| SSG | Server, once at build time | 32.16 ms | Yes |
+| SSR | Server, on every request | 829.02 ms | Yes |
+| CSR | Browser, after JavaScript loads | 79.30 ms | No |
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **SSG** is fastest because the HTML is prebuilt.
+- **SSR** is slower because the server builds the page on every request, but the data is always fresh.
+- **CSR** sends an empty shell quickly, then the browser fetches the data, so users see "Loading..." first.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Best use cases
+- **SSG:** blogs, documentation, content that rarely changes.
+- **SSR:** dashboards, news, personalised pages, anything needing fresh data and good SEO.
+- **CSR:** interactive private apps where SEO does not matter.
